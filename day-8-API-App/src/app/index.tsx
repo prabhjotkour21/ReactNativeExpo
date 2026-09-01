@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { View, Text, FlatList, ActivityIndicator ,Button} from 'react-native';
+import { View, Text, FlatList, ActivityIndicator ,Button, StyleSheet} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import axios from "axios"
 
@@ -8,8 +8,46 @@ type Post = {
   title: string;
   body: string;
   userId:number
-
 }
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding:16
+  },
+  hading: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom:15
+  },
+  postCard: {
+    padding: 15,
+    marginBottom: 12,
+    backgroundColor: "#fff",
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor:"#ddd"
+  },
+  postId: {
+    fontSize: 14,
+    fontWeight: "bold",
+    marginBottom:5
+  },
+  postTitle: {
+    fontSize: 18,
+    fontWeight: "600",
+    marginBottom:8
+  },
+  postBody: {
+    fontSize: 14,
+    color:"#666"
+  },
+  button: {
+    marginBottom:15
+  }
+
+})
 export default function HomeScreen() {
   const [data, setData] = useState<Post[]>([])
   const [loading, setLoading] = useState(true)
@@ -75,22 +113,25 @@ export default function HomeScreen() {
     }
   }
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
       <View>
-        <Text>View Posts</Text>
-
-         <Button
+        <Text style={styles.hading}>View Posts</Text>
+        <View style={ styles.button}>
+          <Button
           title='Add Post'
           onPress={addPost}
           />
+         </View>
+         
         <FlatList
           data={data}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => {
             return (
-               <View>
-              <Text>{item.id}</Text>
-              <Text>{ item.title}</Text>
+               <View style={styles.postCard}>
+                <Text style={ styles.postId}>{item.id}</Text>
+                <Text style={styles.postTitle}>{item.title}</Text>
+                <Text style={styles.postBody}>{ item.body}</Text>
             </View>
             )
           }}
