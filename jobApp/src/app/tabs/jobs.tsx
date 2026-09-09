@@ -1,6 +1,6 @@
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import { View, Text, StyleSheet, FlatList ,Pressable} from "react-native";
 
 const styles = StyleSheet.create({
   container: {
@@ -70,9 +70,9 @@ export default function Jobs() {
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => {
           return (
-            <View style={styles.jobItem}>
-              <Text
-                onPress={() => {
+            <Pressable  style={styles.jobItem}
+             onPress={
+               ()=>{
                   router.push(
                     {
                       pathname: "/job-details",
@@ -81,15 +81,15 @@ export default function Jobs() {
                       }
                     }
                   );
-                }}
-              >
-                {item.id}
-              </Text>
-
-              <Text style={styles.title}>{item.title}</Text>
+               }
+             }
+            >
+              <Text>{item.id}</Text>
+               <Text style={styles.title}>{item.title}</Text>
 
               <Text>{item.body}</Text>
-            </View>
+            </Pressable>
+            
           );
         }}
       />
