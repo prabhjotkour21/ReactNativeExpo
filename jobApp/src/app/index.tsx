@@ -1,5 +1,7 @@
 import { View, Text, StyleSheet } from "react-native"
-
+import { useEffect } from "react"
+import AsyncStorage from '@react-native-async-storage/async-storage';
+ import {router} from "expo-router"
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -15,9 +17,16 @@ const styles = StyleSheet.create({
 })
 
 export default function App() {
-  return (
-    <View style={styles.container}> 
-      <Text style={styles.containerText}>Job Application</Text>
-    </View>
-  )
+  useEffect(() => {
+    const checkLogin = async () => {
+      const isLoggedIn = await AsyncStorage.getItem("isLogin")
+      if (isLoggedIn === "true") {
+        router.replace("/tabs/home")
+      } else {
+        router.replace("/login")
+      }
+    }
+    checkLogin()
+  },[])
+  return null
 }
