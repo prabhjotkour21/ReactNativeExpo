@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { router } from "expo-router";
 import { useState } from "react";
+import  AsyncStorage from '@react-native-async-storage/async-storage';
 
 const styles = StyleSheet.create({
   container: {
@@ -104,6 +105,7 @@ export default function Login() {
 
     setError("");
     setIslogin(true);
+    AsyncStorage.setItem("islogin", "true");
   };
 
   return (
