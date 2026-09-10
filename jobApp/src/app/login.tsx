@@ -104,6 +104,8 @@ export default function Login() {
     }
 
     setError("");
+    console.log("Email:", email);
+    console.log("Password:", password);
     setIslogin(true);
     AsyncStorage.setItem("islogin", "true");
   };
