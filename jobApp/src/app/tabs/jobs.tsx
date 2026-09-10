@@ -41,12 +41,17 @@ export default function Jobs() {
         const response = await fetch(
           "https://jsonplaceholder.typicode.com/posts",
         );
-
+        if (!response.ok) {
+          
+          throw new Error("Something went wrong");
+        }
         const data = await response.json();
 
         
 
         setJobs(data);
+        
+        
       } catch (error) {
         setError("Something went wrong");
       } finally {
