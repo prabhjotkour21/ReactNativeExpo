@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState , useEffect } from "react";
 import {
   View,
   Text,
@@ -10,7 +10,19 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import * as SQLite from "expo-sqlite";
 
+export const db = SQLite.openDatabaseSync("first.db")
+
+export function initDB() {
+  db.execSync(`
+      CREATE TABLE IF NOT EXISTS first(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL, 
+        course TEXT NOT NULL
+      );
+    `)
+}
 const students = [
   { id: "1", name: "Aman", course: "React Native" },
   { id: "2", name: "Priya", course: "Node.js" },
@@ -100,6 +112,21 @@ export default function App() {
       setRefreshing(false);
     }, 2000);
   };
+  useEffect(() => {
+    initDB()
+    // Test insert 
+    db.runSync(
+      "INSERT INTO first(name ,course) VALUES (?,?) ",
+      "Test User",
+      "React Native"
+    )
+    //   test read
+
+    const rows = db.getAllSync("SELECT * FROM first");
+    console.log("Sudent in DB", rows );
+    
+
+  },[])
 
   return (
     <SafeAreaView style={styles.container}>
