@@ -23,6 +23,30 @@ export function initDB() {
       );
     `)
 }
+
+db.execAsync(`
+    CREATE TABLE IF NOT EXISTS USERS(
+      id INTERGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      amount REAL,
+      category TEXT,
+
+    )
+  `)
+
+db.execAsync(` 
+      CREATE TABLE IF NOT EXISTS EXPENSES
+        (
+            id INTEGER PRIMARY KEY AUTOINCREMENT ,
+            name TEXT NOT NULL, 
+            category TEXT ,
+            description TEXT ,
+            date TEXT,
+            amount REAL 
+        )
+  `)
+
+
 const students = [
   { id: "1", name: "Aman", course: "React Native" },
   { id: "2", name: "Priya", course: "Node.js" },
@@ -119,6 +143,14 @@ export default function App() {
       "INSERT INTO first(name ,course) VALUES (?,?) ",
       "Test User",
       "React Native"
+    )
+    db.runSync(
+      "INSERT INTO  EXPENSES(name , category) VALUES ('tshirt' ,'shopping')",
+      
+    )
+
+    db.runSync(
+      "INSERT INTO EXPENSES(name ,category) VALUES ('shirt','shopping')"
     )
     //   test read
 
