@@ -154,6 +154,8 @@ export default function App() {
                 />
               </View>
 
+              
+
               <View style={styles.button}>
                 <Button
                   title="Delete"
