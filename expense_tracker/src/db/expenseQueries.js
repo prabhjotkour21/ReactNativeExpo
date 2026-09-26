@@ -42,3 +42,17 @@ export function deleteExpense(id) {
     console.log("deleted",result.changes);
     
 }
+
+export function checkExpense() {
+    const data = db.getAllSync("SELECT * FROM expenses")
+    console.log("db data  ",data);
+    
+}
+
+export function getExpenseByTitleAndAmount() {
+    const data = db.getAllSync("SELECT title FROM expenses WHERE title="Second")
+    console.log("uddiedji",data);
+    
+}
+getExpenseByTitleAndAmount()
+checkExpense()
